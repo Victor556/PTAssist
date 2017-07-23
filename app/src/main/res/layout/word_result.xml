@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rlRoot"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:background="#2000"
+                android:minHeight="100dp"
+                android:visibility="visible">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.putao.ptx.assistant.views.SharpView
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:background="#0000"/>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/tvWord"
+            android:background="@drawable/shape_ocr_rst">
+
+            <com.putao.ptx.assistant.views.FlowLayout
+                android:id="@+id/flowLayout"
+                android:layout_width="700dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="#FFF"
+                android:padding="50dp"
+                android:paddingBottom="50dp"
+                android:translationZ="-4dp">
+
+            </com.putao.ptx.assistant.views.FlowLayout>
+        </ScrollView>
+
+        <com.putao.ptx.assistant.views.SharpView
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:background="#0000"/>
+    </LinearLayout>
+
+</RelativeLayout>

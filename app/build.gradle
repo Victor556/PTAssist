@@ -1,0 +1,130 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "com.putao.ptx.assistant"
+        minSdkVersion 23
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        config {
+            storeFile file("com.putao.sign.jks")
+            storePassword "123456"
+            keyAlias "com.putao"
+            keyPassword "putao123"
+        }
+        putao {
+            storeFile file(System.getenv("HOME") + "/keystore/putao.keystore")
+            storePassword "putao123"
+            keyAlias "ptx"
+            keyPassword "putao123"
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.putao
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            splits {
+                abi {
+                    enable true
+                    reset()
+                    //abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+                    include 'armeabi-v7a'//'x86', 'armeabi-v7a', 'mips'//只打包v8
+                    exclude 'x86', 'arm64-v8a', 'mips'
+                    //universalApk true
+                }
+            }
+        }
+    }
+
+    productFlavors {
+        dev {
+            versionName defaultConfig.versionName + " A"
+        }
+
+        if (!"TRUE".equals(System.getenv()['IS_PATCH'])) {
+            innerTest {
+                versionName defaultConfig.versionName + " B"
+            }
+
+            online {
+                versionName defaultConfig.versionName// + " C"
+            }
+        }
+    }
+
+    task copyApks(type: Copy, dependsOn: build) {
+        delete "${rootProject.buildDir}/v${defaultConfig.versionName}/"
+        from "${project.buildDir}/outputs/apk/"
+        include {
+            apk -> apk.file.name.contains('PTSpirits')
+        }
+        into "${rootProject.buildDir}/v${defaultConfig.versionName}/"
+    }
+
+    applicationVariants.all {
+        variant ->
+            variant.outputs.each {
+                output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        if (variant.flavorName == 'innerTest' && variant.buildType.name == 'release') {
+                            def newFileName = 'PTAssist-innerTest.apk'
+                            output.outputFile = new File(outputFile.parent, newFileName)
+                        }
+                        if (variant.flavorName == 'online' && variant.buildType.name == 'release') {
+                            def newFileName = 'PTAssist-online.apk'
+                            output.outputFile = new File(outputFile.parent, newFileName)
+                        }
+                        if (variant.flavorName == 'dev' && variant.buildType.name == 'release') {
+                            def newFileName = 'PTAssist-dev.apk'
+                            output.outputFile = new File(outputFile.parent, newFileName)
+                        }
+                    }
+            }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    //testCompile 'junit:junit:4.12'
+    compile project(':ocrsinovoice')
+    //compile project(':libdictionary')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    //compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.tencent.bugly:crashreport:2.2.0'
+
+    compile 'com.putao.robotop:xfspeechlib:1.2.4'
+
+    compile 'com.android.volley:volley:1.0.0'
+
+    compile 'org.ansj:ansj_seg:5.1.1'
+
+    testCompile 'junit:junit-dep:4.8.+'
+}

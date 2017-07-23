@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_hori_haici_item">5dp</dimen>
+    <dimen name="margin_vert_haici_item">5dp</dimen>
+    <dimen name="height_operation">114dp</dimen>
+    <dimen name="ocr_margin_bottom">60dp</dimen>
+    <dimen name="ocr_margin_hori">22.5dp</dimen><!--ocr_margin_bottom * 0.75*0.5-->
+
+    <dimen name="width_exit_dlg">600dp</dimen>
+    <dimen name="height_exit_dlg">250dp</dimen>
+
+
+    <dimen name="radius">21dp</dimen>
+    <dimen name="arrow_height">20dp</dimen>
+    <dimen name="height_word_preview">125dp</dimen>
+
+    <dimen name="toast_pic_width">185dp</dimen>
+    <dimen name="toast_pic_height">81dp</dimen>
+    <dimen name="toast_width">288dp</dimen>
+    <dimen name="toast_height">176dp</dimen>
+
+
+    <dimen name="scan_dlg_width">193dp</dimen>
+    <dimen name="scan_dlg_height">66dp</dimen>
+    <dimen name="height_haici_item">42dp</dimen>
+    <dimen name="padding_hori_haici_item">22dp</dimen>
+    <dimen name="padding_vert_haici_item">0dp</dimen>
+    <dimen name="margin_top_framelayout">30dp</dimen>
+</resources>

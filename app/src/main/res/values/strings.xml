@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">PtAssist</string>
+
+    <string-array name="ignore">
+        <item>paibot</item>
+        <item>©</item>
+        <item>◎</item>
+        <item>+</item>
+        <item>□</item>
+        <item>▼</item>
+        <item>®</item>
+        <item>〇</item>
+        <item>€</item>
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+
+    </string-array>
+</resources>
